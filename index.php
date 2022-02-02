@@ -1,6 +1,6 @@
 <?php 
 require_once('fiskal/fiskInit.php');
-use Fiskal\Request\Item as Item;
+use WdevRs\Request\Item as Item;
 
 $itm = new Item();
 
