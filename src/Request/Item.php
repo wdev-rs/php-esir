@@ -1,5 +1,5 @@
 <?php
-namespace WdevRs\Request;
+namespace WdevRs\PhpEsir\Request;
 
 //Egy item adatai amit a szamlan meg kell adni
 //A szamlara items[] megy, megha csak egy item van is benne

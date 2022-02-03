@@ -9,3 +9,6 @@ define("CERT_NAME", 'A certifikate neve');
 
 //Mindenfelekeppen kell a headerbe kuldeni 
 define("PAK", 'A pak id');
+
+//a V-SDC alap Uri cime
+define("VSDC_BASE", 'https://valami.su.rs');

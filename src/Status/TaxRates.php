@@ -1,5 +1,5 @@
 <?php
-namespace WdevRs\Status;
+namespace WdevRs\PhpEsir\Status;
 
 
 class TaxRates {
