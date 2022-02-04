@@ -51,7 +51,7 @@ class Item {
    }
 
    //Ezzel lehet mertekegyseget a nevhez hozzaadni, ha nem adtuk alapbol oda
-   public function add_Unit_To_Itemname($unit){
+   public function addUnitToItemname($unit){
        $this->name .= '/'. $unit;
    }
 

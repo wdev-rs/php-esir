@@ -23,7 +23,7 @@ class Pay {
         $this->paymentType = $payType;
     }
 
-    public function IsValid(){
+    public function isValid(){
 
         //az osszegnek szamnak kell lenie, ha nem az bisztos nem jo
         if (is_numeric($this->amount)){
