@@ -1,6 +1,6 @@
 <?php 
-require_once('fiskal/fiskInit.php');
-use WdevRs\Request\Item as Item;
+require_once('vendor/autoload.php');
+use WdevRs\PhpEsir\Request\Item as Item;
 
 $itm = new Item();
 

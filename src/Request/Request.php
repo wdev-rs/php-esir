@@ -118,6 +118,92 @@ class Request {
                 return false;
             }
         }
+        // Leellenorizni van e buyerCostCenterId
+        if ($this->buyerCostCenterId !== null){
+
+            //Ha van kitoltve buyerCostCenterId muszaj, hogy legyen kitoltve buyerId is
+            if ($this->buyerId === null){
+                return false;
+            }
+
+            //Nem lehet hoszabb 50 karakternel
+            if (strlen($this->buyerCostCenterId) > 50){
+                return false;
+            }
+
+            //Megprobaljuk szetvalasztani a : nal, hogy ellenorizuk a formatum jo e
+            $secC = explode(':', $this->buyerCostCenterId);
+            if (count($secC) !== 2){
+                return false;
+            }
+        }
+
+        //Ellenorizni az invoiceTypot
+        //Ha null, bisztos nem jo
+        if ($this->invoiceType === null){
+            return false;
+        }
+
+        //Szam erteke 0-4 kozott lehet, ha kisebb 0 vagy nagyobb 4 out of range
+        if (is_numeric($this->invoiceType)){
+            if ($this->invoiceType !== 0 && $this->invoiceType !== 1 && $this->invoiceType !== 2 && $this->invoiceType !== 3 && $this->invoiceType !== 4){
+                return false;
+            }
+        }else{
+
+            //Ha stringertek a felsorolt ertekek lehetnek nagybetukre vigyazni
+            if ($this->invoiceType != 'Normal' && $this->invoiceType != 'ProForma' && $this->invoiceType != 'Copy' && $this->invoiceType != 'Training' && $this->invoiceType != 'Advance'){
+                return false;
+            }
+        }
+
+        //Leellenorizni a transactionType-ot
+        //Nem lehet null
+        if ($this->transactionType === null){
+            return false;
+        }
+
+        //Ha szam van megadva vagy 0 vagy 1 lehet
+        if (is_numeric($this->transactionType)){
+            if ($this->transactionType !== 0 && $this->transactionType !== 1){
+                return false;
+            }
+        }else{
+
+            //Ha string akkor Sale vagy Refund lehet, vigyazni a nagy betukkel
+            if ($this->transactionType != 'Sale' && $this->transactionType != 'Refund'){
+                return false;
+            }
+        }
+
+        //Ellenorizni a paymenteket
+        if ($this->payment === null){
+            return false;
+        }
+
+        //Megha egy eleme is van, muszaj, hogy array legyen
+        if (!is_array($this->payment)){
+            return false;
+        }
+
+        //Nem lehet ures array
+        if(count($this->payment) < 1){
+            return false;
+        }
+
+        //Ellenorizni, hogy van e refdocnum
+        if ($this->referentDocumentNumber !== null){
+
+            //Ha van refdocnum kell, hogy legyen DT is
+            if ($this->referentDocumentDT === null){
+                return false;
+            }
+            $refSec = explode('-', $this->referentDocumentNumber);
+            if ($refSec !== 3){
+                return false;
+            }
+
+        }
           
     }
 
