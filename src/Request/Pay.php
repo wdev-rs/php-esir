@@ -47,7 +47,7 @@ class Pay {
         if (is_numeric($this->paymentType)){
 
             //Ha szam 0 es 6 kozott kell lenie
-            if ($this->paymentTape < 0 || $this->paymentType > 6){
+            if ($this->paymentType < 0 || $this->paymentType > 6){
                 return false;
             }
 
