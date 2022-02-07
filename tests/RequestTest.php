@@ -48,9 +48,10 @@ class RequestTest extends TestCase{
                     'quantity' => 1,
                     'unitPrice' => 10,
                     'labels' => ['A']
-                ]
+                ],
                 'expectedResult' => true
             ]
-        ]
+            ];
+        }
 
 }
