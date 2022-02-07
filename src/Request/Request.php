@@ -199,10 +199,36 @@ class Request {
                 return false;
             }
             $refSec = explode('-', $this->referentDocumentNumber);
-            if ($refSec !== 3){
+            if (count($refSec) !== 3){
                 return false;
             }
+            if (strlen($refSec[0]) !== 8 && strlen($refSec[1]) !== 8){
+                return false;
+            }
+        }
 
+        //Ellenorizni a refDT -t
+        if ($this->referentDocumentDT !== null){
+            if ($this->referentDocumentNumber === null){
+                return false;
+            }
+            try {
+                $refDt = strtotime($this->referentDocumentDT);
+                $this->referentDocumentDT = $refDt->format("Y/m/d H:i:s");
+            } catch (\Throwable $th) {
+                return false;
+            }
+        }
+
+        //leellenorizni az itemeket
+        if ($this->items == null){
+            return false;
+        }
+        if (!is_array($this->items)){
+            return false;
+        }
+        if (count($this->items) < 1){
+            return false;
         }
           
     }
