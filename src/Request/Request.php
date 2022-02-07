@@ -202,7 +202,7 @@ class Request {
             if (count($refSec) !== 3){
                 return false;
             }
-            if (strlen($refSec[0]) !== 8 && strlen($refSec[1]) !== 8){
+            if (strlen($refSec[0]) !== 8 || strlen($refSec[1]) !== 8){
                 return false;
             }
         }
@@ -213,8 +213,8 @@ class Request {
                 return false;
             }
             try {
-                $refDt = strtotime($this->referentDocumentDT);
-                $this->referentDocumentDT = $refDt->format("Y/m/d H:i:s");
+                $refDtUnix = strtotime($this->referentDocumentDT);            
+               $this->referentDocumentDT = date('Y-m-d\TH:i:s\Z', $refDtUnix);
             } catch (\Throwable $th) {
                 return false;
             }
@@ -230,6 +230,7 @@ class Request {
         if (count($this->items) < 1){
             return false;
         }
+        return true;
           
     }
 
