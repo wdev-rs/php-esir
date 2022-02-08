@@ -1,5 +1,5 @@
 <?php
-namespace WdevRs\PhpEsir;
+namespace WdevRs\PhpEsir\Response;
 
 //ebbe a class -ban majd a komunikacios funkciok lesznek, legalabbis egyenlore ugy gondolom
 class Kom {

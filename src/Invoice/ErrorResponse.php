@@ -1,5 +1,5 @@
 <?php
-namespace WdevRs\PhpEsir\Response;
+namespace WdevRs\PhpEsir\Invoice;
 
 //Ha sikertelen a szamlakerelem a valasz ilyen errorresponse formatumba jon vissza
 class ErrorResponse {
