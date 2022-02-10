@@ -9,63 +9,43 @@ use WdevRs\PhpEsir\Invoice\ModelError;
 
 class ErrorResponseTest extends TestCase{
 
-    /**
-     * @dataProvider provideErrorData
-     */
-    public function testErrorResponseMessage($errorString, $expectedResult)
+    
+    public function testErrorResponseMessage()
     {
-        $err = new ErrorResponse($errorString);
-        $this->assertEquals($expectedResult, $err->getMessage());
+        $errorJsonString = '{"message":"Bad Request","modelState":[{"property":"referentDocumentNumber","errors":["2806"]}]}';
+        $errorArray = json_decode($errorJsonString, true);
+        $err = new ErrorResponse($errorArray);
+        $this->assertEquals("Bad Request", $err->getMessage());
     }
 
-     /**
-     * @dataProvider provideModelErrorData
-     */
-    public function testModelErrorProperty($errorString, $expectedResult)
+    
+    public function testModelErrorProperty()
     {
-        $err = new ErrorResponse($errorString);
-        $modelErr = $err->getModelState;
+        $errorJsonString = '{"message":"Bad Request","modelState":[{"property":"referentDocumentNumber","errors":["2806"]}]}';
+        $errorArray = json_decode($errorJsonString, true);
+        $err = new ErrorResponse($errorArray);
+        $modelErr = $err->getModelState();
         $modelErr = $modelErr[0];
-        $this->assertEquals($expectedResult, $modelErr->getProperty());
+        $this->assertEquals("referentDocumentNumber", $modelErr->getProperty());
     }
 
-
-    public function provideErrorData(){
-        return [
-            'Valid Error Message' => [
-                'errorString' => [
-                    [
-                    'message' => 'Bad request',
-                    'modelState' => [
-                        
-                            'property' => 'referentDocumentDT',
-                            'errors' => ['2100','1500']
-                        
-                    ]
-                 ] ],
-                'expactedResult' => 'Bad request'
-            ]
-        ];
-
+    public function testModelErrorCodes()
+    {
+        $errorJsonString = '{"message":"Bad Request","modelState":[{"property":"referentDocumentNumber","errors":["2806"]}]}';
+        $errorArray = json_decode($errorJsonString, true);
+        $err = new ErrorResponse($errorArray);
+        $modelErr = $err->getModelState();
+        $modelErr = $modelErr[0];
+        $this->assertEquals(["2806"], $modelErr->getErrors());
     }
-
-    public function provideModelErrorData(){
-        return [
-            'Valid Error Message' => [
-                'errorString' => [
-                    'message' => 'Bad request',
-                    'modelState' => [
-                        
-                            'property' => 'referentDocumentDT',
-                            'errors' => ['2100','1500']
-                        
-                    ]
-                ],
-                'expactedResult' => 'referentDocumentDT'
-            ]
-        ];
-
+   
+    public function testModelErrorProperty2()
+    {
+        $errorJsonString = '{"message":"Bad Request","modelState":[{"property":"referentDocumentNumber","errors":["2800"]},{"property":"referentDocumentDT","errors":["2800"]}]}';
+        $errorArray = json_decode($errorJsonString, true);
+        $err = new ErrorResponse($errorArray);
+        $modelErr = $err->getModelState();
+        $modelErr = $modelErr[1];
+        $this->assertEquals("referentDocumentDT", $modelErr->getProperty());
     }
-
-
 }

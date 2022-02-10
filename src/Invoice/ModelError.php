@@ -6,14 +6,14 @@ class ModelError {
     protected $property;
     protected $errors;
 
-    public function __construct($prop, $err){
-        $this->property = $prop ?? null;
-        if (is_array($err)){
-            foreach ($err as $errorCode){
-                $errors[] = $errorCode;
-            }
+    public function __construct($prop){
+        foreach ($prop as $err => $value)
+        if (is_array($value)){
+        
+              $this->errors = $value;
+        
         }else{
-            $errors[] = $err ?? null;
+            $this->property = $value;
         }
 
     }

@@ -17,9 +17,12 @@ class ErrorResponse {
         $this->message = $response['message'] ?? null;
         if (isset($response['modelState'])){
             if (is_array($response['modelState'])){
-                foreach ($response['modelState'] as $state){
-                    $modelErr = new ModelError($state['property'], $state['errors']);
-                    $this->modelState[] = $modelErr;
+                foreach ($response['modelState'] as $states){
+                    
+                        $modelErr = new ModelError($states);
+                        $this->modelState[] = $modelErr;
+                    
+                    
                 }
             }
         }else{
