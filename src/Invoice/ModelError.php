@@ -7,14 +7,22 @@ class ModelError {
     protected $errors;
 
     public function __construct($prop, $err){
-        $this->property = $prop;
+        $this->property = $prop ?? null;
         if (is_array($err)){
             foreach ($err as $errorCode){
                 $errors[] = $errorCode;
             }
         }else{
-            $errors[] = $err;
+            $errors[] = $err ?? null;
         }
 
+    }
+
+    public function getProperty(){
+        return $this->property;
+    }
+
+    public function getErrors(){
+        return $this->errors;
     }
 }

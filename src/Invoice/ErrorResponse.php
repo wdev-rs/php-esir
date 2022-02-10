@@ -25,15 +25,18 @@ class ErrorResponse {
         }else{
             $this->modelState = null;
         }
-        if ($this->message === null || $this->modelState === null){
-            return null;
-        }
 
     }
 
-    //Valamilyen formaban visszakuldi az adatokat
-    public function returnErrors(){
+    //viszakuldi a messaget
+    public function getMessage(){
+        return $this->message;
 
+    }
+
+    //viszakuldi a modelState et ami egy array a modelErrorokbol, utana rajtuk is lehet viszakuldeni az ertekeiket
+    public function getModelState(){
+        return $this->modelState;
     }
 
 }
