@@ -10,60 +10,74 @@ class PayTest extends TestCase{
 
     public function testEmptyPay(){
 
-        $pay = new Pay(null,null);
+        $pay = new Pay(null);
         $this->assertFalse($pay->isValid());
     }
 
     /**
      * @dataProvider providePayData
      */
-    public function testsetUnitPrice($payAmount,$payType, $expectedResult)
+    public function testsetUnitPrice($payment, $expectedResult)
     {
-        $pay = new Pay($payAmount,$payType);
+        $pay = new Pay($payment);
         $this->assertEquals($expectedResult, $pay->isValid());
     }
 
     public function providePayData(){
         return [
             'Valid payTypeint' => [
-                'payAmount' =>  10.5,
-                'payType' =>  0,
+                'payment' =>[
+                'amount' =>  10.5,
+                'paymentType' =>  0
+                ],
                 'expectedResult' => true
-
+                
             ],
             'Valid payTypestring' => [
-                'payAmount' =>  100,
-                'payType' =>  'Cash',
+                'payment' =>[
+                'amount' =>  100,
+                'paymentType' =>  'Cash'
+                ],
                 'expectedResult' => true
-
+                
             ],
             'Missing amount' => [
-                'payAmount' =>  null,
-                'payType' => 2,
+                'payment' =>[
+                'amount' =>  null,
+                'paymentType' => 2
+                ],
                 'expectedResult' => false
 
             ],
             'Type outOfRangeInt' => [
-                'payAmount' =>  10,
-                'payType' => 7,
+                'payment' =>[
+                'amount' =>  10,
+                'paymentType' => 7
+                ],
                 'expectedResult' => false
 
             ],
             'Type stringUnknown' => [
-                'payAmount' =>  10,
-                'payType' => 'Valami',
+                'payment' =>[
+                'amount' =>  10,
+                'paymentType' => 'Valami'
+                ],
                 'expectedResult' => false
 
             ],
             'Amount nulla' => [
-                'payAmount' =>  0,
-                'payType' => 4,
+                'payment' =>[
+                'amount' =>  0,
+                'paymentType' => 4
+                ],
                 'expectedResult' => true
 
             ],
             'Amount negative' => [
-                'payAmount' =>  -10,
-                'payType' => 'Card',
+                'payment' =>[
+                'amount' =>  -10,
+                'paymentType' => 'Card'
+                ],
                 'expectedResult' => false
 
                ]

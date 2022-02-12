@@ -1,6 +1,7 @@
 <?php 
 require_once('vendor/autoload.php');
 use WdevRs\PhpEsir\Invoice\Invoice;
+use WdevRs\PhpEsir\Request\Request;
 
 
 
@@ -53,4 +54,41 @@ $invoiceJsonString = '{
   }';
 $invoiceArray = json_decode($invoiceJsonString, true);
 $invoice = new Invoice($invoiceArray);
-var_dump($invoice);
+//var_dump($invoice);
+$reqData = array('invoiceType' =>  0,
+'transactionType' =>  0,
+'invoiceNumber' => '123/1.0.0',
+'cashier' => 'Radnik',
+'buyerId' => null,
+'buyerCostCenterId' => null,
+'referentDocumentNumber' => null,
+'referentDocumentDT' => null,
+'payment' => [
+
+  [
+    'amount' => 10,
+    'paymentType' => 1
+  ],
+  [
+    'amount' => 10,
+    'paymentType' => 1
+  ]
+],     
+'items' => [
+  [
+   'gtin' => '12345678',
+   'name' => 'Test item/kg',
+   'quantity' => 1,
+   'unitPrice' => 10,
+   'labels' => ['A']
+  ],
+  [
+    'gtin' => '12345678',
+    'name' => 'Test item/kg',
+    'quantity' => 1,
+    'unitPrice' => 10,
+    'labels' => ['A']
+   ]
+]);
+$req = new Request($reqData);
+var_dump($req);

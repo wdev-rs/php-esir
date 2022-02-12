@@ -18,9 +18,9 @@ class Pay {
     6 - MobileMoney */   
     protected $paymentType;
 
-    public function __construct($amount, $payType){
-        $this->amount = $amount;
-        $this->paymentType = $payType;
+    public function __construct($payment){
+        $this->amount = $payment['amount'] ?? null;
+        $this->paymentType = $payment['paymentType'] ?? null;
     }
 
     public function isValid(){
