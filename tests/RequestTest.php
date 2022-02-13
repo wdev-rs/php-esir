@@ -3,9 +3,9 @@
 namespace WdevRs\PhpEsir\Tests;
 
 use PHPUnit\Framework\TestCase;
-use WdevRs\PhpEsir\Request\InvoiceItem;
-use WdevRs\PhpEsir\Request\InvoicePay;
-use WdevRs\PhpEsir\Request\InvoiceRequest;
+use WdevRs\PhpEsir\InvoiceRequest\InvoiceItem;
+use WdevRs\PhpEsir\InvoiceRequest\InvoicePay;
+use WdevRs\PhpEsir\InvoiceRequest\InvoiceRequest;
 
 
 class RequestTest extends TestCase{

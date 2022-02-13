@@ -3,7 +3,7 @@
 namespace WdevRs\PhpEsir\Tests;
 
 use PHPUnit\Framework\TestCase;
-use WdevRs\PhpEsir\Request\InvoiceItem;
+use WdevRs\PhpEsir\InvoiceRequest\InvoiceItem;
 
 
 class ItemTest extends TestCase
@@ -115,7 +115,7 @@ class ItemTest extends TestCase
      */
     public function testsetUnitPrice($priceData, $expectedResult)
     {
-        $item = new Item();
+        $item = new InvoiceItem();
         $this->assertEquals($expectedResult, $item->setUnitPrice($priceData));
     }
 
@@ -144,7 +144,7 @@ class ItemTest extends TestCase
      */
     public function testaddNewQuantity($quantData, $expectedResult)
     {
-        $item = new Item();
+        $item = new InvoiceItem();
         $item -> setUnitPrice(10);
         $this->assertEquals($expectedResult, $item->addQuantity($quantData));
     }
@@ -154,7 +154,7 @@ class ItemTest extends TestCase
      */
     public function testaddMoreQuantity($quantData, $expectedResult)
     {
-        $item = new Item();
+        $item = new InvoiceItem();
         $item -> setUnitPrice(10);
         $item->addQuantity(1);
         $this->assertEquals($expectedResult, $item->addQuantity($quantData));
@@ -205,7 +205,7 @@ class ItemTest extends TestCase
      */
     public function testaddLabel($labelData, $expectedResult)
     {
-        $item = new Item();
+        $item = new InvoiceItem();
         
         $this->assertEquals($expectedResult, $item->addOneLabel($labelData));
     }

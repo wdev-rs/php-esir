@@ -1,7 +1,7 @@
 <?php
 namespace WdevRs\PhpEsir\InvoiceResponse;
 
-use WdevRs\PhpEsir\Invoice\ModelError;
+use WdevRs\PhpEsir\InvoiceResponse\ModelError;
 
 //Ha sikertelen a szamlakerelem a valasz ilyen errorresponse formatumba jon vissza
 class ErrorResponse {

@@ -3,7 +3,7 @@
 namespace WdevRs\PhpEsir\Tests;
 
 use PHPUnit\Framework\TestCase;
-use WdevRs\PhpEsir\Request\InvoicePay;
+use WdevRs\PhpEsir\InvoiceRequest\InvoicePay;
 
 
 class PayTest extends TestCase{
