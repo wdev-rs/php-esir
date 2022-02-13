@@ -1,5 +1,5 @@
 <?php
-namespace WdevRs\PhpEsir\Invoice;
+namespace WdevRs\PhpEsir\InvoiceResponse;
 
 class ModelError {
 

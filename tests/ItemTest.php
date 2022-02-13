@@ -3,7 +3,7 @@
 namespace WdevRs\PhpEsir\Tests;
 
 use PHPUnit\Framework\TestCase;
-use WdevRs\PhpEsir\Request\Item;
+use WdevRs\PhpEsir\Request\InvoiceItem;
 
 
 class ItemTest extends TestCase
@@ -11,7 +11,7 @@ class ItemTest extends TestCase
 
     public function testEmptyItem()
     {
-        $item = new Item();
+        $item = new InvoiceItem();
         $this->assertFalse($item->isValid());
     }
 
@@ -20,7 +20,7 @@ class ItemTest extends TestCase
      */
     public function testItem($itemData, $expectedResult)
     {
-        $item = new Item($itemData);
+        $item = new InvoiceItem($itemData);
         $this->assertEquals($expectedResult, $item->isValid());
     }
 

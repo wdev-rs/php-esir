@@ -1,5 +1,5 @@
 <?php
-namespace WdevRs\PhpEsir\Request;
+namespace WdevRs\PhpEsir\InvoiceRequest;
 
 /**
  * Define one item in Invoice.
@@ -16,7 +16,7 @@ namespace WdevRs\PhpEsir\Request;
  * @var array $labels Tax category labels for item.
  * @var float|double $totalPrice The total price of item (quantity * unitPrice).
  */
-class Item {
+class InvoiceItem {
 
     //barcodja az itemnek 8-14 character, mindeg string
     //Ha nincs gtin null ertek kell

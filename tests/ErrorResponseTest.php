@@ -3,8 +3,8 @@
 namespace WdevRs\PhpEsir\Tests;
 
 use PHPUnit\Framework\TestCase;
-use WdevRs\PhpEsir\Invoice\ErrorResponse;
-use WdevRs\PhpEsir\Invoice\ModelError;
+use WdevRs\PhpEsir\InvoiceResponse\ErrorResponse;
+use WdevRs\PhpEsir\InvoiceResponse\ModelError;
 
 
 class ErrorResponseTest extends TestCase{

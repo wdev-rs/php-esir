@@ -3,9 +3,9 @@
 namespace WdevRs\PhpEsir\Tests;
 
 use PHPUnit\Framework\TestCase;
-use WdevRs\PhpEsir\Request\Item;
-use WdevRs\PhpEsir\Request\Pay;
-use WdevRs\PhpEsir\Request\Request;
+use WdevRs\PhpEsir\Request\InvoiceItem;
+use WdevRs\PhpEsir\Request\InvoicePay;
+use WdevRs\PhpEsir\Request\InvoiceRequest;
 
 
 class RequestTest extends TestCase{
@@ -16,7 +16,7 @@ class RequestTest extends TestCase{
     public function testRequestIsValid($requestData, $expectedResult)
     {
        
-        $req = new Request($requestData);
+        $req = new InvoiceRequest($requestData);
         
         $this->assertEquals($expectedResult, $req->isValid());
     }

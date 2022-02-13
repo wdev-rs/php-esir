@@ -1,8 +1,8 @@
 <?php
-namespace WdevRs\PhpEsir\Request;
+namespace WdevRs\PhpEsir\InvoiceRequest;
 
 //Az egy fizetesfajta meghatarozasara es a fizetes osszege
-class Pay {
+class InvoicePay {
 
     //az amountnak 0 vagy nagyobbnak kell lenie
     protected $amount;

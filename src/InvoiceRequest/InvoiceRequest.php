@@ -1,8 +1,8 @@
 <?php
-namespace WdevRs\PhpEsir\Request;
+namespace WdevRs\PhpEsir\InvoiceRequest;
 
 //A vegleges szamlakerelmi modell amit kell majd elkuldeni
-class Request {
+class InvoiceRequest {
     //A dateAndTimeOfIssue -t csak is es kizarolag AVANS PRODAJA esetebe kell megadni, minden mas esetbe null kell, hogy legyen
     protected $dateAndTimeOfIssue;
 
@@ -57,12 +57,12 @@ class Request {
                     if($key = 'payment'){
 
                         foreach ($value as $pay){
-                            $onePay = new Pay($pay);
+                            $onePay = new InvoicePay($pay);
                             $this->payment[] = $onePay;
                         }
                     }elseif ($key = 'items'){
                         foreach ($value as $item){
-                            $newItem = new Item($item);
+                            $newItem = new InvoiceItem($item);
                             $this->items[] = $newItem;
                         }
                     }else {

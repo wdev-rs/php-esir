@@ -1,8 +1,8 @@
 <?php
-namespace WdevRs\PhpEsir\Invoice;
+namespace WdevRs\PhpEsir\InvoiceResponse;
 
 //sikeres fiszkalizacio utan a valasz ez a model adatait fogja tartalmazni
-class Invoice {
+class InvoiceResponse {
 
     protected $requestedBy; 
     protected $sdcDateTime; 

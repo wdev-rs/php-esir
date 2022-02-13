@@ -3,14 +3,14 @@
 namespace WdevRs\PhpEsir\Tests;
 
 use PHPUnit\Framework\TestCase;
-use WdevRs\PhpEsir\Request\Pay;
+use WdevRs\PhpEsir\Request\InvoicePay;
 
 
 class PayTest extends TestCase{
 
     public function testEmptyPay(){
 
-        $pay = new Pay(null);
+        $pay = new InvoicePay(null);
         $this->assertFalse($pay->isValid());
     }
 
@@ -19,7 +19,7 @@ class PayTest extends TestCase{
      */
     public function testsetUnitPrice($payment, $expectedResult)
     {
-        $pay = new Pay($payment);
+        $pay = new InvoicePay($payment);
         $this->assertEquals($expectedResult, $pay->isValid());
     }
 
