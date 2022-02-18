@@ -1,7 +1,7 @@
 <?php 
 require_once('vendor/autoload.php');
-use WdevRs\PhpEsir\Invoice\Invoice;
-use WdevRs\PhpEsir\Request\Request;
+use WdevRs\PhpEsir\Invoice\InvoiceResponse;
+use WdevRs\PhpEsir\Request\InvoiceRequest;
 
 
 
@@ -53,7 +53,7 @@ $invoiceJsonString = '{
     "mrc": "00-0000-ID100839528RSLPV100"
   }';
 $invoiceArray = json_decode($invoiceJsonString, true);
-$invoice = new Invoice($invoiceArray);
+$invoice = new InvoiceResponse($invoiceArray);
 //var_dump($invoice);
 $reqData = array('invoiceType' =>  0,
 'transactionType' =>  0,
@@ -90,5 +90,5 @@ $reqData = array('invoiceType' =>  0,
     'labels' => ['A']
    ]
 ]);
-$req = new Request($reqData);
+$req = new InvoiceRequest($reqData);
 var_dump($req);
