@@ -15,9 +15,16 @@ class InvoiceRequestSender {
     //vagy a class fo tartalmazni public funciokat a kulonbozo endpoitokhoz
     protected $options;
 
-    //Az object keszitesenel bealitja az ertekeket
-    public function __construct( string $vsdc_Uri, string $cert, string $pak ) {
+    protected $client;
 
+    //Az object keszitesenel bealitja az ertekeket
+    public function __construct( string $vsdc_Uri, string $cert, string $pak, $client = null ) {
+
+        if ( $client === null){
+            $client = new GuzzleHttp\Client();       
+        }else{
+            $this->client = $client;
+        }
         $this->baseUri = $vsdc_Uri;     
         $this->options = setOptions( $cert, $pak );
 
@@ -40,11 +47,7 @@ class InvoiceRequestSender {
     //Attention endpoint
     public function atention($client = null){
 
-        if ( $client === null){
-            $client = new GuzzleHttp\Client();       
-        }
-
-        $response = $client->get($this->baseUri . '/Atention', $this->options );
+        $response = $this->$client->get($this->baseUri . '/Atention', $this->options );
         
         if ($response->getStatusCode() === 200){
 
@@ -60,11 +63,8 @@ class InvoiceRequestSender {
 
     //get status report
     public function getStatus($client = null){
-        if ( $client === null){
-            $client = new GuzzleHttp\Client();         
-        }
-
-        $response = $client->get($this->baseUri . '/Status', $this->options );    
+       
+        $response = $this->$client->get($this->baseUri . '/Status', $this->options );    
 
         if ($response->getStatusCode() === 200){
 
@@ -85,11 +85,7 @@ class InvoiceRequestSender {
         $jsonRequest = json_encode($request);
         $this->options['body'] = $jsonRequest;
 
-        if ( $client === null){
-            $client = new GuzzleHttp\Client();           
-        }
-
-        $response = $client->get($this->baseUri . '/Invoice', $this->options );  
+        $response = $this->$client->post($this->baseUri . '/Invoice', $this->options );  
 
         if ($response->getStatusCode() === 200){
 
@@ -108,5 +104,11 @@ class InvoiceRequestSender {
     private function checkResponse($response){
         //Le kell ellenorizni hogy invoicet vagy error modelt kaptunk visza es viszakuldeni a megfelelo modelt
 
+        if (isset($response['verificationUrl'])){
+
+            return new InvoiceResponse($response);
+        }else{
+            return new ErrorResponse($response);
+        }
     }
 }
