@@ -63,4 +63,8 @@ class VirtualInvoiceProcesorStatus {
         return $this->supportedLanguages;
     }
 
+    public function getCurrentLabels(){
+        return $this->currentTaxRates->getLabels();
+    }
+
 }

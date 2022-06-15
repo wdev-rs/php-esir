@@ -1,9 +1,10 @@
 <?php
 namespace WdevRs\PhpEsir\InvoiceRequestSender;
 
-use WdevRs\PhpEsir\Invoice\InvoiceResponse;
-use WdevRs\PhpEsir\Request\InvoiceRequest;
-use WdevRs\PhpEsir\Request\VirtualInvoiceProcesorStatus;
+use WdevRs\PhpEsir\InvoiceResponse\InvoiceResponse;
+use WdevRs\PhpEsir\InvoiceRequest\InvoiceRequest;
+use WdevRs\PhpEsir\InvoiceResponse\ErrorResponse;
+use WdevRs\PhpEsir\VirtualInvoiceProcesorStatus\VirtualInvoiceProcesorStatus;
 
 //ebbe a class -ban majd a komunikacios funkciok lesznek, legalabbis egyenlore ugy gondolom
 class InvoiceRequestSender {
@@ -26,7 +27,7 @@ class InvoiceRequestSender {
             $this->client = $client;
         }
         $this->baseUri = $vsdc_Uri;     
-        $this->options = setOptions( $cert, $pak );
+        $this->options = $this->setOptions( $cert, $pak );
 
     }
 
@@ -36,18 +37,17 @@ class InvoiceRequestSender {
         return [
             'headers' => [
                 'Content-type' => 'application/json; charset=UTF-8',
-                'pak' => $pak
+                'pac' => $pak
             ],
-            'cert' => [
-                $cert
-            ]
+            'cert' => $cert
+            
         ];
     }
 
     //Attention endpoint
-    public function atention($client = null){
+    public function atention(){
 
-        $response = $this->$client->get($this->baseUri . '/Atention', $this->options );
+        $response = $this->client->get($this->baseUri . '/api/v3/attention', $this->options );
         
         if ($response->getStatusCode() === 200){
 
@@ -62,9 +62,9 @@ class InvoiceRequestSender {
     }
 
     //get status report
-    public function getStatus($client = null){
+    public function getStatus(){
        
-        $response = $this->$client->get($this->baseUri . '/Status', $this->options );    
+        $response = $this->client->get($this->baseUri . '/api/v3/status', $this->options );    
 
         if ($response->getStatusCode() === 200){
 
@@ -78,21 +78,28 @@ class InvoiceRequestSender {
         
     }
 
-    //invoice request
-    public function sendInvoice( InvoiceRequest $invoice, $client = null){
+    //invoice request 
+    public function sendInvoice($invoice){
 
-        $request = serialize($invoice);
-        $jsonRequest = json_encode($request);
-        $this->options['body'] = $jsonRequest;
+        
+        $this->options['json'] = $invoice;
+        
+        try{
+            
+            $response = $this->client->post($this->baseUri . '/api/v3/invoices', $this->options ); 
+        }catch(\Exception $ex)
+        {
 
-        $response = $this->$client->post($this->baseUri . '/Invoice', $this->options );  
+            return $ex->getMessage();
+        }
+        
 
         if ($response->getStatusCode() === 200){
 
             $responseString = ( string )$response->getBody();
             $responseArray = json_decode($responseString, true);
-            return checkResponse($responseArray);
-
+            return $this->checkResponse($responseArray);
+        
         }else{
 
             return false;

@@ -59,4 +59,14 @@ class InvoicePay {
         //Ha egyik ellenorzes sem kuldott vissza false ot talan minden jo
         return true;
     }
+    //amount
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+    //paymentType
+    public function getPaymentType()
+    {
+        return $this->paymentType;
+    }
 }

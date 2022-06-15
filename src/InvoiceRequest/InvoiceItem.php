@@ -250,4 +250,32 @@ class InvoiceItem {
     //Ha egyik check sem kuldot vissza falsot akkor talan jo az item, mehet a szamlara :)
     return true;
    }
+
+   public function getGtin(){
+       return $this->gtin;
+   }
+   public function getName()
+   {
+       return $this->name;
+   }
+   //unitPrice
+   public function getUnitPrice()
+   {
+       return $this->unitPrice;
+   }
+   //quantity
+   public function getQuantity()
+   {
+       return $this->quantity;
+   }
+   //labels
+   public function getLabels()
+   {
+       return $this->labels;
+   }
+   //totalAmount
+   public function getTotalAmount()
+   {
+       return $this->totalAmount;
+   }
 }

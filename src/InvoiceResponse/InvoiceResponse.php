@@ -13,7 +13,7 @@ class InvoiceResponse {
     protected $verificationUrl; 
     protected $verificationQRCode; 
     protected $journal; 
-    protected $messages; 
+    protected $messages = null; 
     protected $signedBy; 
     protected $encryptedInternalData; 
     protected $signature; 
@@ -148,6 +148,95 @@ class InvoiceResponse {
     //A regisztracios kodja a programnak amelyik alairta a szamlat
     public function getMrc(){
         return $this->mrc;
+    }
+
+    public function toArray()
+    {
+        $data = [];
+        if ( $this->requestedBy !== null) {
+            $data['requestedBy'] = $this->requestedBy;
+        }
+        if ($this->sdcDateTime !== null) {
+            $data['sdcDateTime'] = $this->sdcDateTime;
+        }
+        if ($this->invoiceCounter !== null) {
+            $data['invoiceCounter'] = $this->invoiceCounter;
+        }
+        if ($this->invoiceCounterExtension !== null) {
+            $data['invoiceCounterExtension'] = $this->invoiceCounterExtension;
+        }
+        if ($this->verificationUrl !== null) {
+            $data['verificationUrl'] = $this->verificationUrl;
+        }
+        if ($this->verificationQRCode !== null) {
+            $data['verificationQRCode'] = $this->verificationQRCode;
+        }
+        if ($this->invoiceNumber !== null) {
+            $data['invoiceNumber'] = $this->invoiceNumber;
+        }
+        if ($this->journal !== null) {
+            $data['journal'] = $this->journal;
+        }
+        if ($this->messages !== null) {
+            $data['messages'] = $this->messages;
+        }
+        if ($this->signedBy !== null) {
+            $data['signedBy'] = $this->signedBy;
+        }
+        if ($this->encryptedInternalData !== null) {
+            $data['encryptedInternalData'] = $this->encryptedInternalData;
+        }
+        if ($this->signature !== null) {
+            $data['signature'] = $this->signature;
+        }
+        if ($this->totalCounter !== null) {
+            $data['totalCounter'] = $this->totalCounter;
+        }
+        if ($this->transactionTypeCounter !== null) {
+            $data['transactionTypeCounter'] = $this->transactionTypeCounter;
+        }
+        if ($this->totalAmount !== null) {
+            $data['totalAmount'] = $this->totalAmount;
+        }
+        if ($this->taxGroupRevision !== null) {
+            $data['taxGroupRevision'] = $this->taxGroupRevision;
+        }
+        if ($this->businessName !== null) {
+            $data['businessName'] = $this->businessName;
+        }
+        if ($this->tin !== null) {
+            $data['tin'] = $this->tin;
+        }
+        if ($this->locationName !== null) {
+            $data['locationName'] = $this->locationName;
+        }
+        if ($this->address !== null) {
+            $data['address'] = $this->address;
+        }
+        if ($this->district !== null) {
+            $data['district'] = $this->district;
+        }
+        if ($this->mrc !== null) {
+            $data['mrc'] = $this->mrc;
+        }
+       
+        $taxItems = [];
+        if (count($this->taxItems) > 0) {
+            foreach ($this->taxItems as $taxItem) {
+                $newTaxItem = [
+                    'categoryType' => $taxItem->getCategoryType(),
+                    'label' => $taxItem->getLabel(),
+                    'amount' => $taxItem->getAmount(),
+                    'rate' => $taxItem->getRate(),
+                    'categoryName' => $taxItem->getCategoryName(),
+                ];
+                $taxItems[] = $newTaxItem;
+            }
+        }
+        $data['taxItems'] = $taxItems;
+        
+
+        return $data;
     }
 
 }

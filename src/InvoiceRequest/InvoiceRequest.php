@@ -1,10 +1,12 @@
 <?php
 namespace WdevRs\PhpEsir\InvoiceRequest;
 
+use SebastianBergmann\Type\NullType;
+
 //A vegleges szamlakerelmi modell amit kell majd elkuldeni
 class InvoiceRequest {
     //A dateAndTimeOfIssue -t csak is es kizarolag AVANS PRODAJA esetebe kell megadni, minden mas esetbe null kell, hogy legyen
-    protected $dateAndTimeOfIssue;
+    protected $dateAndTimeOfIssue = null;
 
     //lenyegtelen adat lehet null vagy valakinek a neve aki elmeletileg a kaszan dolgozik alltalaba null
     protected $cashier = null;
@@ -22,31 +24,31 @@ class InvoiceRequest {
        // 3 - Training   
        // 4 - Advance
     
-    protected $invoiceType;
+    protected $invoiceType = null;
 
     //FONTOS lehet szam vagy string kovetkezok lehetnek int - string formaban
     //0 - Sale
     //1 - Refund
-    protected $transactionType;
+    protected $transactionType = null;
 
     //Array a Pay classokbol, akkor is array kell, hogy legyen, ha csak egy eleme van
-    protected $payment;
+    protected $payment = [];
 
     //Ez nem az aminek gondolja az ember, ez a PROGRAM regisztracios kodja, ugyhogy hardcodolva lesz a vegen :)
-    protected $invoiceNumber;
+    protected $invoiceNumber = null;
 
     //Ha egy szamlat egy masik szamlara hivatkozva adnak ki a kovetkezo ket mezo kotelezo
     //Copy es refundnal mindenfelekeppen, vagy normal, ami tartalmaz Avans fizetest, vagy eloszamlara hivatkozik
     //A referentDocumentNumber a szamla szama, ami a responsba visszajott
     //A DT pedig az ideje, vigyazni kell a datum formatumara, stringbe kell keldeni yyyy/MM/DD hh:mm:ss.ms formatumban
-    protected $referentDocumentNumber;
-    protected $referentDocumentDT;
+    protected $referentDocumentNumber = null;
+    protected $referentDocumentDT = null;
 
     //Ez hogy kersz e vissza QR kodott, meg journalt ezzel a bealitassal journal jon QR kod nem
     protected $options = array("omitQRCodeGen" => '1', "omitTextualRepresentation" => '0');
 
     //array az Item class bol akkor is array, ha csak egy item van
-    protected $items;
+    protected $items = [];
 
     //Az invoice tipusat es transakcio tipusat keszitesnel logikus megadni, igy pl keszitsz egy Normal Sale szamla alapjat
     public function __construct($invoiceRequest = []){
@@ -88,7 +90,7 @@ class InvoiceRequest {
     }
 
     //Egy itemet add a szamlahoz, ha tobb van tobszor kell hivni ugyanezt a functiot
-    public function addItem(Item $Itm){
+    public function addItem(InvoiceItem $Itm){
 
         //leellenorizi magat az item, hogy meg e van minden erteke, ha nincs nem adja hozza(a return ertekkel lehet leellenorizni, hogy hozza lett e adva a szamlahoz)
         if ($Itm -> isValid()){
@@ -100,7 +102,7 @@ class InvoiceRequest {
     }
 
     //Egy paymantet add a szamlahoz, ha tobb van tobbszor kell hivni ugyanazt a functiont
-    public function addPaymant(Pay $payment){
+    public function addPaymant(InvoicePay $payment){
         if ($payment -> isValid()){
             $this->payment[] = $payment;
             return true;
@@ -123,9 +125,10 @@ class InvoiceRequest {
     }
 
     //Normal Refund Figyelem kell referent documentum(KELL a funcioval lekuldeni)
-    public function normalRefund($refDoc, $refDocDt){
+    public function normalRefund($refDoc, $refDocDt, $buyerId){
         $this->referentDocumentNumber = $refDoc;
         $this->referentDocumentNumberDT = $refDocDt;
+        $this->buyerId = $buyerId;
         $this->invoiceType = 0;
         $this->transactionType = 1;
     }
@@ -339,4 +342,64 @@ class InvoiceRequest {
           
     }
 
+    public function toArray()
+    {
+        $data = [];
+        if ( $this->dateAndTimeOfIssue !== null) {
+            $data['dateAndTimeOfIssue'] = $this->dateAndTimeOfIssue;
+        }
+        if ($this->cashier !== null) {
+            $data['cashier'] = $this->cashier;
+        }
+        if ($this->buyerId !== null) {
+            $data['buyerId'] = $this->buyerId;
+        }
+        if ($this->buyerCostCenterId !== null) {
+            $data['buyerCostCenterId'] = $this->buyerCostCenterId;
+        }
+        if ($this->invoiceType !== null) {
+            $data['invoiceType'] = $this->invoiceType;
+        }
+        if ($this->transactionType !== null) {
+            $data['transactionType'] = $this->transactionType;
+        }
+        if ($this->invoiceNumber !== null) {
+            $data['invoiceNumber'] = $this->invoiceNumber;
+        }
+        if ($this->referentDocumentNumber !== null) {
+            $data['referentDocumentNumber'] = $this->referentDocumentNumber;
+        }
+        if ($this->referentDocumentDT !== null) {
+            $data['referentDocumentDT'] = $this->referentDocumentDT;
+        }
+        $data['options'] = $this->options;
+        $pays = [];
+        if (count($this->payment) > 0) {
+            foreach ($this->payment as $pay) {
+                $newPay = [
+                    'amount' => $pay['amount'],
+                    'paymentType' => $pay['paymentType']
+                ];
+                $pays[] = $newPay;
+            }
+        }
+        $data['payment'] = $pays;
+        $itms = [];
+        if (count($this->items) > 0) {
+            foreach ($this->items as $item) {
+                $newItem = [
+                    'gtin'        => $item['gtin'] ?? null,
+                    'name'        => $item['name'],
+                    'unitPrice'   => $item['unitPrice'],
+                    'quantity'    => $item['quantity'],
+                    'labels'      => $item['labels'],
+                    'totalAmount' => $item['totalAmount']
+                ];
+                $itms[] = $newItem;
+            }
+        }
+        $data['items'] = $itms;
+
+        return $data;
+    }
 }

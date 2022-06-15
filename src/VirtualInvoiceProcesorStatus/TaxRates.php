@@ -10,7 +10,7 @@ class TaxRates {
     //A csoport azonosito szama
     protected $groupId; 
 
-    //Egy array a az ado kategoriakrol amik az adot csoportba tartoznak
+    //Egy array az ado kategoriakrol amik az adot csoportba tartoznak
     protected $taxCategories;
 
     public function __construct($taxes){
@@ -18,7 +18,7 @@ class TaxRates {
             foreach ($taxes as $key => $value){
                 if (is_array($value)){
                     foreach ( $value as $taxCategory){
-                       $tax = new TaxCategory($taxCategories);
+                       $tax = new TaxCategory($taxCategory);
                        $this->taxCategories[] = $tax;
                     }
                 }else{
@@ -40,5 +40,21 @@ class TaxRates {
         return $this->taxCategories;
     }
 
+    public function getLabels(){
+        $labels = [];
+        foreach ($this->taxCategories as $taxCategory) {
+            foreach ($taxCategory->getTaxRates() as $taxRate){
+                $newLabel = [
+                    'order_id'      => $taxCategory->getOrderId(),
+                    'name'          => $taxCategory->getName(),
+                    'category_type' => $taxCategory->getCategoryType(),
+                    'label'         => $taxRate->getLabel(),
+                    'rate'          => $taxRate->getRate(),
+                ];
+                $labels[] = $newLabel;
+            }
+        }
+        return $labels;
+    }
 
 }
