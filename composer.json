@@ -6,7 +6,7 @@
         "phpesir"
     ],
     "homepage": "https://github.com/wdev-rs/php-esir",
-    "license": "The Unlicense",
+    "license": "MIT License",
     "type": "library",
     "authors": [
         {
