@@ -5,7 +5,7 @@
         "wdevrs",
         "phpesir"
     ],
-    "homepage": "https://github.com/wdevrs/phpesir",
+    "homepage": "https://github.com/wdev-rs/php-esir",
     "license": "The Unlicense",
     "type": "library",
     "authors": [
