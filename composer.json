@@ -1,5 +1,5 @@
 {
-    "name": "wdevrs/phpesir",
+    "name": "wdev-rs/phpesir",
     "description": "Php implementation of electronic invoice service (ESIR)",
     "keywords": [
         "wdevrs",
