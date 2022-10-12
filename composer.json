@@ -3,7 +3,8 @@
     "description": "Php implementation of electronic invoice service (ESIR)",
     "keywords": [
         "wdevrs",
-        "phpesir"
+        "phpesir",
+        "esir"
     ],
     "homepage": "https://github.com/wdev-rs/php-esir",
     "license": "MIT",
