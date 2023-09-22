@@ -114,7 +114,7 @@ class InvoiceRequest {
     //Adni referent documentumot
     public function addReferentDocument($refDoc, $refDocDt){
         $this->referentDocumentNumber = $refDoc;
-        $this->referentDocumentNumberDT = $refDocDt;
+        $this->referentDocumentDT = $refDocDt;
     }
 
     //A kovetkezo nehany funkcio a kulonbozo szamlatipusok bealitasara van
@@ -127,7 +127,7 @@ class InvoiceRequest {
     //Normal Refund Figyelem kell referent documentum(KELL a funcioval lekuldeni)
     public function normalRefund($refDoc, $refDocDt, $buyerId){
         $this->referentDocumentNumber = $refDoc;
-        $this->referentDocumentNumberDT = $refDocDt;
+        $this->referentDocumentDT = $refDocDt;
         $this->buyerId = $buyerId;
         $this->invoiceType = 0;
         $this->transactionType = 1;
@@ -143,7 +143,7 @@ class InvoiceRequest {
     //ProForma Refund KELL referent documentum!!
     public function proFormaRefund($refDoc, $refDocDt){
         $this->referentDocumentNumber = $refDoc;
-        $this->referentDocumentNumberDT = $refDocDt;
+        $this->referentDocumentDT = $refDocDt;
         $this->invoiceType = 1;
         $this->transactionType = 1;
     }
@@ -151,7 +151,7 @@ class InvoiceRequest {
     //Copy Sale KELL Referent document
     public function copySale($refDoc, $refDocDt){
         $this->referentDocumentNumber = $refDoc;
-        $this->referentDocumentNumberDT = $refDocDt;
+        $this->referentDocumentDT = $refDocDt;
         $this->invoiceType = 2;
         $this->transactionType = 0;
     }
@@ -159,7 +159,7 @@ class InvoiceRequest {
     //Copy Refund KELL referent document
     public function copyRefund($refDoc, $refDocDt){
         $this->referentDocumentNumber = $refDoc;
-        $this->referentDocumentNumberDT = $refDocDt;
+        $this->referentDocumentDT = $refDocDt;
         $this->invoiceType = 2;
         $this->transactionType = 1;
     }
@@ -173,7 +173,7 @@ class InvoiceRequest {
     //Training refund Kell referent documentum
     public function trainingRefund($refDoc, $refDocDt){
         $this->referentDocumentNumber = $refDoc;
-        $this->referentDocumentNumberDT = $refDocDt;
+        $this->referentDocumentDT = $refDocDt;
         $this->invoiceType = 3;
         $this->transactionType = 1;
     }
@@ -188,7 +188,7 @@ class InvoiceRequest {
     //Avans refund KELL referent document
     public function advanceRefund($refDoc, $refDocDt){
         $this->referentDocumentNumber = $refDoc;
-        $this->referentDocumentNumberDT = $refDocDt;
+        $this->referentDocumentDT = $refDocDt;
         $this->invoiceType = 4;
         $this->transactionType = 1;
         $this->setDateAndTimeOfIssue();
